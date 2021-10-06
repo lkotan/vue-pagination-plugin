@@ -1,6 +1,6 @@
 {
   "name": "l-pagination",
-  "version": "0.1.6",
+  "version": "0.1.7",
   "main": "/dist/pagination.common.js",
   "scripts": {
     "serve": "vue-cli-service serve",
@@ -39,7 +39,12 @@
     "last 2 versions",
     "not dead"
   ],
+  "repository": {
+    "type": "git",
+    "url": "https://github.com/lkotan/vue-pagination-plugin"
+  },
   "files": [
     "dist/*"
-  ]
+  ],
+  "license": "MIT"
 }

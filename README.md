@@ -11,12 +11,6 @@
 | pills       | Boolean | False   | False    | Applies pill styling to the pagination buttons |
 | size        | String  | md      | False    | Size of the rendered buttons                   |
 
-# Emit
-
-```bash
-<Pagination @changePage="changePage"/>
-```
-
 # Vue
 
 ```bash
@@ -35,6 +29,22 @@ methods: {
     }
 }
 ```
+# Props
+```bash
+    <Pagination
+      :totalPage="totalPage"
+      :perPage="perPage"
+      :initialPage="currentPage"
+      :pills="pills"
+      :size="size"
+    />
+```
+# Emit
+
+```bash
+<Pagination @changePage="changePage"/>
+```
+
 
 ## Project setup
 
