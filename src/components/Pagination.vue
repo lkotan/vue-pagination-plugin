@@ -89,16 +89,7 @@ export default {
 .pills .prev {
   border-radius: 6px;
 }
-button {
-  padding: 6px 8px;
-  outline: none;
-  cursor: pointer;
-  border: 1px solid #e1e1e1;
-  background: white;
-  color: #40ae7d;
-}
 .active {
-  border: 1px solid #40ae7d;
   color: white;
   background: #40ae7d;
 }
