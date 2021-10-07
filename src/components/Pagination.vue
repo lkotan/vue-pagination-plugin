@@ -1,26 +1,34 @@
 <template>
   <div class="pagination">
-    <div v-for="page in totalPage" :key="page" :class="[pills ? 'pills' : '']">
+    <div
+      v-for="(page, index) in pages"
+      :key="index"
+      :class="[pills ? 'pills' : '']"
+    >
       <button
         class="prev"
+        :class="[currentPage == page.text ? 'disabled' : '']"
         :style="buttonSize"
-        v-if="page == 1"
-        :disabled="currentPage == page ? true : false"
+        v-if="page.text == 1"
+        :disabled="currentPage == page.text ? true : false"
         @click="currentPage--, $emit('changePage', currentPage)"
       >
         Prev
       </button>
+      <button class="break" v-if="page.breakView">{{ breakText }}</button>
       <button
+        v-else
         :style="buttonSize"
-        :class="[initialPage == page ? 'active' : '']"
-        @click="(currentPage = page), $emit('changePage', currentPage)"
+        :class="[initialPage == page.text ? 'active' : '']"
+        @click="(currentPage = page.text), $emit('changePage', currentPage)"
       >
-        {{ page }}
+        {{ page.text }}
       </button>
       <button
         class="next"
+        :class="[currentPage == totalPage ? 'disabled' : '']"
         :style="buttonSize"
-        v-if="page == totalPage"
+        v-if="page.text == totalPage"
         :disabled="currentPage == totalPage ? true : false"
         @click="currentPage++, $emit('changePage', currentPage)"
       >
@@ -48,6 +56,18 @@ export default {
       type: String,
       default: "md",
     },
+    pageRange: {
+      type: Number,
+      default: 3,
+    },
+    breakText: {
+      type: String,
+      default: "...",
+    },
+    marginPages: {
+      type: Number,
+      default: 2,
+    },
   },
   data() {
     return {
@@ -73,6 +93,67 @@ export default {
       }
       return buttonStyle;
     },
+    pages() {
+      let items = {};
+      if (this.totalPage <= this.pageRange) {
+        for (let index = 0; index < this.totalPage; index++) {
+          let page = {
+            index: index,
+            text: index + 1,
+          };
+          items[index] = page;
+        }
+      } else {
+        const halfPageRange = Math.floor(this.pageRange / 2);
+
+        let pageItem = (index) => {
+          let page = {
+            index: index,
+            text: index + 1,
+          };
+          items[index] = page;
+        };
+
+        for (let i = 0; i < this.marginPages; i++) pageItem(i);
+
+        let breakView = (index) => {
+          let breakView = {
+            disabled: true,
+            breakView: true,
+          };
+          items[index] = breakView;
+        };
+
+        let selectedRangeLow = 0;
+        if (this.initialPage - halfPageRange > 0)
+          selectedRangeLow = this.initialPage - 1 - halfPageRange;
+
+        let selectedRangeHigh = selectedRangeLow + this.pageRange - 1;
+        if (selectedRangeHigh >= this.totalPage) {
+          selectedRangeHigh = this.totalPage - 1;
+          selectedRangeLow = selectedRangeHigh - this.pageRange + 1;
+        }
+
+        for (
+          let i = selectedRangeLow;
+          i <= selectedRangeHigh && i <= this.totalPage - 1;
+          i++
+        )
+          pageItem(i);
+
+        if (selectedRangeLow > this.marginPages) breakView(selectedRangeLow - 1);
+        if (selectedRangeHigh + 1 < this.totalPage - this.marginPages)
+          breakView(selectedRangeHigh + 1);
+
+        for (
+          let i = this.totalPage - 1;
+          i >= this.totalPage - this.marginPages;
+          i--
+        )
+          pageItem(i);
+      }
+      return items;
+    },
   },
 };
 </script>
@@ -80,6 +161,11 @@ export default {
 <style scoped>
 .pagination {
   display: flex;
+}
+
+.pagination .break {
+  display: flex;
+  height: 100%;
 }
 .pills button {
   border-radius: 50%;
@@ -92,5 +178,8 @@ export default {
 .active {
   color: white;
   background: #40ae7d;
+}
+.disabled {
+  cursor: not-allowed;
 }
 </style>

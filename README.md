@@ -10,6 +10,9 @@
 | initialPage | Number  |         | True     | Number of rows initial page                    |
 | pills       | Boolean | False   | False    | Applies pill styling to the pagination buttons |
 | size        | String  | md      | False    | Size of the rendered buttons                   |
+| pageRange   | Number  | 3       | False    | Range of pages which displayed                 |
+| breakText   | String  | ...     | False    | Text for the break view indicator              |
+| marginPage  | Number  | 2       | False    | The number of displayed pages for margins      |
 
 # Vue
 
@@ -17,10 +20,13 @@
 data() {
     return {
             currentPage: 1,
-            perPage: 4,
+            perPage: 3,
             totalPage: 0,
             pills: false,
             size: "md",
+            pageRange: 3,
+            marginPages: 2,
+            breakText: "...",
         };
 },
 methods: {
@@ -35,8 +41,12 @@ methods: {
       :totalPage="totalPage"
       :perPage="perPage"
       :initialPage="currentPage"
+      @changePage="changePage"
       :pills="pills"
       :size="size"
+      :pageRange="pageRange"
+      :breakText="breakText"
+      :marginPages="marginPages"
     />
 ```
 # Emit

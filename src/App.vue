@@ -5,7 +5,9 @@
       <input type="text" v-model="size" />
     </header>
     <section class="cards">
-      <h3 v-for="(item, index) in paginateData" :key="index">{{ item.name }}</h3>
+      <h3 v-for="(item, index) in paginateData" :key="index">
+        {{ item.name }}
+      </h3>
     </section>
     <Pagination
       :totalPage="totalPage"
@@ -14,7 +16,11 @@
       @changePage="changePage"
       :pills="pills"
       :size="size"
-    />
+      :pageRange="pageRange"
+      :breakText="breakText"
+      :marginPages="marginPages"
+    >
+    </Pagination>
   </div>
 </template>
 
@@ -28,11 +34,50 @@ export default {
   data() {
     return {
       currentPage: 1,
-      perPage: 6,
+      perPage: 3,
       totalPage: 0,
       pills: false,
       size: "md",
+      pageRange: 3,
+      marginPages: 2,
+      breakText: "...",
       data: [
+        {
+          name: "Bret",
+          email: "bret@gmail.com",
+          phone: "1580 1308926",
+          department: "Software",
+        },
+        {
+          name: "Antonette",
+          email: "antonette@gmail.com",
+          phone: "1580 1308926",
+          department: "Customer Service",
+        },
+        {
+          name: "Bret",
+          email: "bret@gmail.com",
+          phone: "1580 1308926",
+          department: "Software",
+        },
+        {
+          name: "Antonette",
+          email: "antonette@gmail.com",
+          phone: "1580 1308926",
+          department: "Customer Service",
+        },
+        {
+          name: "Bret",
+          email: "bret@gmail.com",
+          phone: "1580 1308926",
+          department: "Software",
+        },
+        {
+          name: "Antonette",
+          email: "antonette@gmail.com",
+          phone: "1580 1308926",
+          department: "Customer Service",
+        },
         {
           name: "Bret",
           email: "bret@gmail.com",

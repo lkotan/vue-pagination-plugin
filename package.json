@@ -1,6 +1,7 @@
 {
   "name": "l-pagination",
-  "version": "0.1.9",
+  "version": "0.2.0",
+  "author": "Lütfi Kotan",
   "main": "/dist/pagination.common.js",
   "scripts": {
     "serve": "vue-cli-service serve",
