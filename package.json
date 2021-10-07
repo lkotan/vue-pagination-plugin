@@ -1,10 +1,11 @@
 {
   "name": "l-pagination",
-  "version": "0.1.8",
+  "version": "0.1.9",
   "main": "/dist/pagination.common.js",
   "scripts": {
     "serve": "vue-cli-service serve",
-    "build": "vue-cli-service build --target lib --name pagination src/components/Pagination.vue",
+    "build": "vue-cli-service build",
+    "lib":"vue-cli-service build --target lib --name pagination src/components/Pagination.vue",
     "lint": "vue-cli-service lint"
   },
   "dependencies": {
